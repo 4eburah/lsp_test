@@ -1,0 +1,11 @@
+{
+	"postgre": {
+		"host": "localhost",
+		"user": "lspuser",
+		"password": "lsplsp",
+		"database": "lspdb"
+	},
+	"sql": {
+		"merge_sql":"./sql/merge_to_cyclones_history.sql"
+	}
+}
