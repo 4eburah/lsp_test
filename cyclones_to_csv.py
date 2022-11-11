@@ -25,24 +25,25 @@ def get_cli_options():
     return options
 
 
-options = get_cli_options()
+if __name__ == '__main__':
+    options = get_cli_options()
 
-start_date = datetime.datetime.strptime(options.month, '%Y%m').date()
-end_date = datetime.date(start_date.year, start_date.month, calendar.monthrange(start_date.year, start_date.month)[-1])
+    start_date = datetime.datetime.strptime(options.month, '%Y%m').date()
+    end_date = datetime.date(start_date.year, start_date.month, calendar.monthrange(start_date.year, start_date.month)[-1])
 
-while start_date < end_date:
-    cur_date_str = start_date.strftime("%Y-%m-%d")
-    cur_date_str_nodash = start_date.strftime("%Y%m%d")
+    while start_date < end_date:
+        cur_date_str = start_date.strftime("%Y-%m-%d")
+        cur_date_str_nodash = start_date.strftime("%Y%m%d")
 
-    sql="""COPY (select id, dt, status 
-            from (SELECT id, dt, status,
-                row_number() over (partition by id order by tm desc) as rn
-                FROM cyclones where dt = '{dt}') a
-            where rn = 1) TO STDOUT WITH CSV DELIMITER ';'""".format(dt=cur_date_str)
+        sql="""COPY (select id, dt, status 
+                from (SELECT id, dt, status,
+                    row_number() over (partition by id order by tm desc) as rn
+                    FROM cyclones where dt = '{dt}') a
+                where rn = 1) TO STDOUT WITH CSV DELIMITER ';'""".format(dt=cur_date_str)
 
-    start_date += datetime.timedelta(days=1)
+        start_date += datetime.timedelta(days=1)
 
-    out_file_name = f'{options.out_dir}/cyclones_{cur_date_str_nodash}.csv'
-    print(f'writing to {out_file_name}')
+        out_file_name = f'{options.out_dir}/cyclones_{cur_date_str_nodash}.csv'
+        print(f'writing to {out_file_name}')
 
-    postgre.copy_file(sql=sql, filename=out_file_name, mode='w')
+        postgre.copy_file(sql=sql, filename=out_file_name, mode='w')

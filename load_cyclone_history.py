@@ -28,26 +28,24 @@ def get_cli_options():
     return options
 
 
-def load_file_to_stage(filename):
-    return
+if __name__ == '__main__':
+    options = get_cli_options()
+    config = utils.get_config()
 
-options = get_cli_options()
-config = utils.get_config()
+    print(f'processing {options.file}')
 
-print(f'processing {options.file}')
+    # load file to stage table
 
-# load file to stage table
+    trunc_sql = 'truncate table cyclones_stage'
+    postgre.run_query(trunc_sql)
 
-trunc_sql = 'truncate table cyclones_stage'
-postgre.run_query(trunc_sql)
+    copy_sql = "COPY cyclones_stage FROM STDIN DELIMITER ';' CSV"
+    postgre.copy_file(sql=copy_sql, filename=options.file, mode='r')
 
-copy_sql = "COPY cyclones_stage FROM STDIN DELIMITER ';' CSV"
-postgre.copy_file(sql=copy_sql, filename=options.file, mode='r')
+    # merge stage to history
 
-# merge stage to history
+    load_dt = options.file.split('.')[-2].split('_')[-1]
+    merge_sql = open(config['sql']['merge_sql'], 'r').read()
+    merge_sql = merge_sql.replace('*load_date*', load_dt)
 
-load_dt = options.file.split('.')[-2].split('_')[-1]
-merge_sql = open(config['sql']['merge_sql'], 'r').read()
-merge_sql = merge_sql.replace('*load_date*', load_dt)
-
-postgre.run_query(merge_sql)
+    postgre.run_query(merge_sql)
