@@ -48,8 +48,10 @@
 
 Для выполнения пункта 3 задания, чтобы выгрузить из cyclones в csv данные за три года (2013-2015), нужно  выполнить
 
-`chmod u+x to_csv.sh
-./to_csv.sh`
+```
+chmod u+x to_csv.sh
+./to_csv.sh
+```
 
 #### 4. 
 
@@ -67,6 +69,8 @@
 
 Для загрузки всей истории файлов из csv_dir полученных в пункте 3 нужно выполнить sh скрипт
 
-`chmod u+x csvs_to_db.sh
-./csvs_to_db.sh`
+```
+chmod u+x csvs_to_db.sh
+./csvs_to_db.sh
+```
 
