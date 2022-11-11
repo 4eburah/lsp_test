@@ -8,7 +8,7 @@
 
 Скрипт для пункта 2 запускается так
 
-`python3 cyclones_to_csv.py 201511`
+`python3 cyclones_to_csv.py -month 201511`
 
 Скрипт для пункта 4 запускается так
 
