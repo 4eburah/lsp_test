@@ -8,11 +8,11 @@
 
 Скрипт для пункта 2 запускается так
 
-python3 cyclones_to_csv.py 201511
+`python3 cyclones_to_csv.py 201511`
 
 Скрипт для пункта 4 запускается так
 
-python3 load_cyclone_history.py -file csv_dir/cyclones_20151111.csv
+`python3 load_cyclone_history.py -file csv_dir/cyclones_20151111.csv`
 
 ## Полное описание решения:
 
@@ -34,13 +34,13 @@ python3 load_cyclone_history.py -file csv_dir/cyclones_20151111.csv
 
 Для обоих скриптов загрузки cyclones_to_csv.py, load_cyclone_history.py можно вывести описание их параметров через -h
 
-python3 cyclones_to_csv.py -h
+`python3 cyclones_to_csv.py -h`
 
 #### 2. 
 
 Для выполнения пункта 2 задания и выгрузки месяца данных из таблицы cyclones в csv фалы, нужно выполнить load_cyclone_history.py
 
-python3 cyclones_to_csv.py -month 201511
+`python3 cyclones_to_csv.py -month 201511`
 
 Месяц передается в формате YYYYMM. Подневные файлы складываютя в папку csv_dir
 
@@ -48,14 +48,14 @@ python3 cyclones_to_csv.py -month 201511
 
 Для выполнения пункта 3 задания, чтобы выгрузить из cyclones в csv данные за три года (2013-2015), нужно  выполнить
 
-chmod u+x to_csv.sh
-./to_csv.sh
+`chmod u+x to_csv.sh
+./to_csv.sh`
 
 #### 4. 
 
 Для загрузки одного дня из csv файла в cyclones_history нужно выполнить
 
-python3 load_cyclone_history.py -file csv_dir/cyclones_20151111.csv
+`python3 load_cyclone_history.py -file csv_dir/cyclones_20151111.csv`
 
 Скрипт по загурзке при этом выполняет следующие шаги.
 * Загружает данные из файла в промежуточную таблицу cyclones_stage
@@ -67,6 +67,6 @@ python3 load_cyclone_history.py -file csv_dir/cyclones_20151111.csv
 
 Для загрузки всей истории файлов из csv_dir полученных в пункте 3 нужно выполнить sh скрипт
 
-chmod u+x csvs_to_db.sh
-./csvs_to_db.sh
+`chmod u+x csvs_to_db.sh
+./csvs_to_db.sh`
 
